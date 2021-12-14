@@ -46,7 +46,7 @@ const Main = () => {
         setShowForm(true)
      }
 
-    if (!contacts.length) {
+    if (contacts === null || contacts === undefined) {
         return (
             <div>
                 <h1 style={{textAlign:'center'}} >
