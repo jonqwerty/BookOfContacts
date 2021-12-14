@@ -42,7 +42,11 @@ const Form = (props) => {
 
     const handleSave = (e) => {
         e.preventDefault()
-        const data = [...props.contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
+        if ( props.contacts) {
+            const data = [...props.contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
+            localStorage.setItem('data', JSON.stringify(data))
+        }
+        const data = [{id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
         localStorage.setItem('data', JSON.stringify(data))
         //setContacts([...contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}])
         //data.push({id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country})
