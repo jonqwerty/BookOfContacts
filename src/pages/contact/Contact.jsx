@@ -15,8 +15,7 @@ const Contact = (props) => {
     const [email, setEmail] = useState('')
     const [country, setCountry] = useState('')
 
-    console.log(idFromUrl)
-    console.log(idFromUrl['id'])
+   
     
     useEffect(() => {
         //debugger

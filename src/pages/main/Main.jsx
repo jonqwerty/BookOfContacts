@@ -11,13 +11,12 @@ import Form from '../../components/Form'
 // ]
 
 const Main = () => {
-
     const [contacts, setContacts] = useState([])
     const [trigger, setTrigger] = useState(true)
-
     const [showForm, setShowForm] = useState(false)
 
     
+
     useEffect(() =>{
         const data = JSON.parse(localStorage.getItem('data'));
         setContacts(data)
@@ -46,7 +45,7 @@ const Main = () => {
         setShowForm(true)
      }
 
-    if (contacts === null || contacts === undefined) {
+    if (contacts === null || contacts === undefined ) {
         return (
             <div>
                 <h1 style={{textAlign:'center'}} >

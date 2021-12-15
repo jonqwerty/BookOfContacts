@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 
 const Form = (props) => {
-
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [phone, setPhone] = useState('')
@@ -12,9 +11,9 @@ const Form = (props) => {
     const nameFormat = /^[a-zA-Z_-]{3,15}$/
     const surnameFormat = /^[a-zA-Z_-]{3,15}$/
     const mailFormat = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/
-    const phoneFormat = /^\+\d{2}\(\d{3}\)\d{7}$/
+    //const phoneFormat = /^\+\d{2}\(\d{3}\)\d{7}$/
+    const phoneFormat = /^\d{10}$/
     
-
     
     const handleCancel = () => {
        props.setShowForm(false)
@@ -39,15 +38,20 @@ const Form = (props) => {
     const handleCountry = (e) => {
         setCountry(e.target.value)
     }
-
     const handleSave = (e) => {
         e.preventDefault()
-        if ( props.contacts) {
+        
+        if ( localStorage.getItem('data') === null) {
+            const data = [{id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
+            localStorage.setItem('data', JSON.stringify(data))
+        }
+
+        if (props.contacts ) {
             const data = [...props.contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
             localStorage.setItem('data', JSON.stringify(data))
         }
-        const data = [{id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
-        localStorage.setItem('data', JSON.stringify(data))
+        // const data = [...props.contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
+        // localStorage.setItem('data', JSON.stringify(data))
         //setContacts([...contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}])
         //data.push({id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country})
         setName('')
@@ -59,22 +63,9 @@ const Form = (props) => {
         props.setTrigger(!props.trigger)
         props.setShowForm(false)
     }
-
-    function ValidateEmail(uemail){
-    let mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/
-    if(uemail.value.match(mailformat))
-    {
-    return true;
-    }
-    else
-    {
-    alert("You have entered an invalid email address!");
-    uemail.focus();
-    return false;
-    }
-    }
     
     return (
+        <>
         <form id="myPrompt" style={{position: 'absolute', top: '50px', left: '25%',  right: '25%', width: '400px', zIndex: '12345', margin: '5px auto', backgroundColor: 'white', border:'solid black 5px' }}>
                     <br />
                     <label style={{display: 'block'}}>
@@ -82,19 +73,21 @@ const Form = (props) => {
                     <input
                         value={name}
                         type="text" 
-                        placeholder = "Enter name" 
+                        placeholder = "Must contains 3 ... 15 symbols" 
                         onChange={handleName} 
                        />
                     </label >
+
                     <br />
                     <label style={{display: 'block'}}>
                     Surname:
                     <input
                         value={surname}
                         type="text"          
-                        placeholder = "Enter surename"
+                        placeholder = "Must contains 3 ... 15 symbols"
                         onChange={handleSurname}  
                         />
+                        
                     </label>
                     <br />
                     <label style={{display: 'block'}}>
@@ -102,7 +95,7 @@ const Form = (props) => {
                     <input
                         value={phone}
                         type="text"          
-                        placeholder = "+38(044)5555555"
+                        placeholder = "1234567890"
                         onChange={handlePhone}  
                         />
                     </label>
@@ -133,12 +126,15 @@ const Form = (props) => {
                     {
                         name.match(nameFormat) && surname.match(surnameFormat) 
                         && phone.match(phoneFormat) && email.match(mailFormat) 
-                        && country.match('USA') || country.match('Ukraine') 
+                        && country.match('USA') || country.match('Ukraine')
+
                         ?<button onClick={handleSave}>Save</button>
                         :<button onClick={handleSave} disabled>Save</button>
-                    }   
-                    
+
+                    }
                 </form>
+                   
+                </>
     )
 }
 
