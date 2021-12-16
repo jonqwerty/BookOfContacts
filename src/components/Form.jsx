@@ -38,9 +38,9 @@ const Form = (props) => {
     const handleCountry = (e) => {
         setCountry(e.target.value)
     }
+
     const handleSave = (e) => {
         e.preventDefault()
-        
         if ( localStorage.getItem('data') === null) {
             const data = [{id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
             localStorage.setItem('data', JSON.stringify(data))
@@ -50,16 +50,11 @@ const Form = (props) => {
             const data = [...props.contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
             localStorage.setItem('data', JSON.stringify(data))
         }
-        // const data = [...props.contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}]
-        // localStorage.setItem('data', JSON.stringify(data))
-        //setContacts([...contacts, {id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country}])
-        //data.push({id: Date.now(), name: name, surname: surname, phone: phone, email: email, country: country})
         setName('')
         setSurname('')
         setPhone('')
         setEmail('')
         setCountry('')
-        document.getElementById ('myPrompt').style.display = 'none'
         props.setTrigger(!props.trigger)
         props.setShowForm(false)
     }

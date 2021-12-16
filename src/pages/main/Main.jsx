@@ -27,6 +27,12 @@ const Main = () => {
         const data = JSON.parse(localStorage.getItem('data'));
         setContacts(data)
 
+    },[trigger, showForm])
+
+    useEffect(() =>{
+        const data = JSON.parse(localStorage.getItem('data'));
+        setContacts(data)
+
     },[trigger])
 
 
@@ -41,9 +47,9 @@ const Main = () => {
         }
     }
 
-     const handleAdd = () => {
+    const handleAdd = () => {
         setShowForm(true)
-     }
+    }
 
     if (contacts === null || contacts === undefined ) {
         return (
